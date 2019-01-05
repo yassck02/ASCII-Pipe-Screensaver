@@ -36,6 +36,19 @@ struct Pipe {
 
 int main(int argc, char* argv[])
 {
+	int numPipes;
+
+	if(argc <= 1) {
+		std::cout << "ERROR: Expected 1 integer arguement\n";
+		exit(EXIT_FAILURE);
+	} else {
+		numPipes = atoi(argv[1]);
+		if(numPipes < 1 || numPipes > 4) {
+			std::cout << "ERROR: Integer arguement must be [1, 4]\n";
+			exit(EXIT_FAILURE);
+		}
+	}
+
 	initscr();									// Initialize the ncurses window
     noecho();									// Dissable echoing
     cbreak();									// Dissable line buffering
@@ -51,7 +64,6 @@ int main(int argc, char* argv[])
 	int rows, cols;								// Get the size of the terminal windowz
 	getmaxyx(stdscr, rows, cols);
 
-	int numPipes = 3;
 	Pipe pipes[numPipes];						// Initialize the set of pipes
 	for(int i = 0; i < numPipes; i++) {
 		pipes[i].loc.y = int(rows/2);
